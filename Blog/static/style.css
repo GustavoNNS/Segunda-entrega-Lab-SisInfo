@@ -153,4 +153,6 @@
     background-color: var(--secondary-color-light);
     border: 2px solid var(--secondary-color-light);
   }
-  
+  .foto{
+    max-width: 50%;
+  }

@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'fotos.apps.FotosConfig',   
-    'catalogoFotos.apps.CatalogoConfig',
+    'catalogoFotos.apps.CatalogofotosConfig',
 ]
 
 MIDDLEWARE = [

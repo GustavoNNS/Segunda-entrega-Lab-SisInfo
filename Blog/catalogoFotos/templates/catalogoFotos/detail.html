@@ -1,0 +1,19 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+ {{ foto.titulo }} 
+{{foto.ano_foto}}
+{% endblock title %} 
+
+{% block content %}
+    <h2>Detalhes da foto {{ foto.titulo }} ({{ foto.ano_foto }})</h2>
+    
+    <section class="dados-da-foto">
+      <img class="foto" src="{{ foto.foto_url }}" alt="Fotografia: {{ foto.titulo}}" />
+      <ul>
+        <li>{{ foto.titulo }}</li>
+        <li>Ano da foto: {{ foto.ano_foto }}</li>
+      </ul>
+    </section>
+    
+    {% endblock content %}

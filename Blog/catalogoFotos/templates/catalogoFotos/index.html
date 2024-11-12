@@ -1,0 +1,16 @@
+{% extends 'base.html' %} {% block content %}
+<h2>Todos as fotos</h2>
+{% if lista_fotos %}
+<section class="lista-de-cards">
+  {% for foto in lista_fotos %}
+  <article class="card">
+    <a href="{% url 'catalogo:detail' forloop.counter %}"
+      ><img src="{{ foto.foto_url }}" alt="{{foto.titulo}}"
+    /></a>
+    <p>{{ foto.titulo }} ({{ foto.ano_foto }})</p>
+  </article>
+  {% endfor %}
+</section>
+{% else %}
+<p>Não foi encontrado nenhum filme.</p>
+{% endif %} {% endblock content %}
