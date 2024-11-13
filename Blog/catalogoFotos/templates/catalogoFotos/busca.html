@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Buscar Fotos pelo Título</h2>
+<form action="{% url 'catalogo:busca' %}">
+    <p>
+        <label for="id_query">Título:</label>
+        <input type="text" name="query" id="id_query" />
+    </p>
+    <button type="submit">Buscar</button>
+</form>
+
+
+<h2>Resultados</h2>
+{% if lista_fotos %}
+<section class="lista-de-cards">
+    {% for foto in lista_fotos %}
+    <article class="card">
+        <img src="{{ foto.foto_url }}" alt="Foto {{foto.titulo}}">
+        <p>{{ foto.titulo }} ({{ foto.ano_foto }})</p>
+    </article>
+    {% endfor %}
+</section>
+{% else %}
+<p>Não encontramos nenhuma foto com esse título.</p>
+{% endif %}
+
+{% endblock content %}

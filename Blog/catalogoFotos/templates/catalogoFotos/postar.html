@@ -1,0 +1,20 @@
+{% extends 'base.html' %} {% block content %}
+<h2>Postar nova foto</h2>
+<form method="POST" action="{% url 'catalogo:postar' %}">
+  {% csrf_token %}
+  <p>
+    <label for="id_titulo">Título:</label>
+    <input type="text" name="titulo" id="id_titulo" />
+  </p>
+  <p>
+    <label for="id_ano_foto">Ano da fotografia:</label>
+    <input type="number" name="ano_foto" id="id_ano_foto" />
+  </p>
+  <p>
+    <label for="id_goto_url">URL da foto:</label>
+    <input type="url" name="foto_url" id="id_foto_url" />
+  </p>
+  <button type="submit">Criar</button>
+</form>
+
+{% endblock content %}

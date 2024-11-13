@@ -1,5 +1,14 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+
+{% block content %}
+
 <h2>Todos as fotos</h2>
+<section>
+<p>
+  <a href="{% url 'catalogo:busca' %}"> Buscar</a>
+  <a href="{% url 'catalogo:postar' %}"> Postar foto!</a>
+</p>
+</section>
 {% if lista_fotos %}
 <section class="lista-de-cards">
   {% for foto in lista_fotos %}
@@ -13,4 +22,6 @@
 </section>
 {% else %}
 <p>Não foi encontrado nenhum filme.</p>
-{% endif %} {% endblock content %}
+{% endif %} 
+
+{% endblock content %}
