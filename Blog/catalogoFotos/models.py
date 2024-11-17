@@ -23,3 +23,11 @@ class Comentario(models.Model):
     data_postagem = models.DateTimeField(default=datetime.now)
     def __str__(self):
         return f'"{self.texto}" - {self.autor.username}'
+
+class Categoria(models.Model):
+    nome = models.CharField(max_length=255)
+    descricao = models.CharField(max_length=255)
+    fotos = models.ManyToManyField(Post)
+
+    def __str__(self):
+        return f'{self.nome}'
