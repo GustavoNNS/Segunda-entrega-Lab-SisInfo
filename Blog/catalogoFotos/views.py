@@ -1,37 +1,58 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from .tempdata import foto_data
-
-def detail_foto(request, foto_id):
-    context = {'foto': foto_data[foto_id - 1]}
-    return render(request, 'catalogoFotos/detail.html', context)
+from .models import Post
+import datetime
 
 def catalogo_fotos(request):
-    context = {"lista_fotos": foto_data }
+    context = {"lista_fotos": Post.objects.all() }
     return render(request, 'catalogoFotos/index.html', context)
+
+def detail_foto(request, foto_id):
+    foto = get_object_or_404(Post, pk=foto_id)
+    context = {'foto': foto}
+    return render(request, 'catalogoFotos/detail.html', context)
 
 def busca_fotos(request):
     context = {}
     if request.GET.get('query', False):
-        context = {
-            "lista_fotos": [
-                f for f in foto_data
-                if request.GET['query'].lower() in f['titulo'].lower()
-            ]
-        }
+        lista_fotos = Post.objects.filter(titulo__icontains = request.GET['query'].lower())
+        context = {"lista_fotos" : lista_fotos}
     return render(request, 'catalogoFotos/busca.html', context)
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 def postar_foto(request):
     if request.method == 'POST':
-        foto_data.append({
-            'titulo': request.POST['titulo'],
-            'ano_foto': request.POST['ano_foto'],
-            'foto_url': request.POST['foto_url']
-        })
+        foto = Post(titulo = request.POST['titulo'],
+                    descricao = request.POST["descricao"],
+                    ano_foto = request.POST['ano_foto'],
+                    url_foto = request.POST['url_foto'])      
+        foto.save()
         return HttpResponseRedirect(
-            reverse('catalogo:detail', args=(len(foto_data), )))
+            reverse('catalogo:detail', args=(foto.id, )))
     else:
         return render(request, 'catalogoFotos/postar.html', {})
+    
+def atualizar_post(request, foto_id):
+    foto = get_object_or_404(Post, pk=foto_id)
 
+    if request.method == "POST":
+        foto.titulo = request.POST['titulo']
+        foto.descricao = request.POST["descricao"]
+        foto.ano_foto = int(request.POST['ano_foto'])
+        foto.url_foto = request.POST['url_foto']
+        foto.save()
+        return HttpResponseRedirect(
+            reverse('catalogo:detail', args=(foto.id, )))
+
+    context = {'foto': foto}
+    return render(request, 'catalogoFotos/atualizar.html', context)
+
+def deletar_foto(request, foto_id):
+    foto = get_object_or_404(Post, pk=foto_id)
+
+    if request.method == "POST":
+        foto.delete()
+        return HttpResponseRedirect(reverse('catalogo:index'))
+    context = {'foto': foto}
+    return render(request, 'catalogoFotos/deletar.html', context)

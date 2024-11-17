@@ -16,8 +16,11 @@
 <section class="lista-de-cards">
     {% for foto in lista_fotos %}
     <article class="card">
-        <img src="{{ foto.foto_url }}" alt="Foto {{foto.titulo}}">
+        <a href="{% url 'catalogo:detail' foto.id %}">
+            <img src="{{ foto.url_foto }}" alt="Foto {{foto.titulo}}">
+        </a>
         <p>{{ foto.titulo }} ({{ foto.ano_foto }})</p>
+        <p> {{foto.descricao}} </p>
     </article>
     {% endfor %}
 </section>

@@ -6,14 +6,17 @@
 {% endblock title %} 
 
 {% block content %}
-    <h2>Detalhes da foto {{ foto.titulo }} ({{ foto.ano_foto }})</h2>
+    <h2>Detalhes da foto - "{{ foto.titulo }}" ({{ foto.ano_foto }})</h2>
     
     <section class="dados-da-foto">
-      <img class="foto" src="{{ foto.foto_url }}" alt="Fotografia: {{ foto.titulo}}" />
+      <img class="foto" src="{{ foto.url_foto }}" alt="Fotografia: {{ foto.titulo}}" />
       <ul>
         <li>{{ foto.titulo }}</li>
         <li>Ano da foto: {{ foto.ano_foto }}</li>
+        <li><a href="{% url 'catalogo:atualizar' foto.id %}"> Editar </a> </li>
+        <li><a href="{% url 'catalogo:deletar' foto.id %}"> Apagar </a> </li>
       </ul>
+      <p> {{foto.descricao}} </p>
     </section>
     
     {% endblock content %}

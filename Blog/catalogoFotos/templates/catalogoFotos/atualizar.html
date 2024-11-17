@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Atualizar post {{ foto.titulo }} ({{ foto.ano_foto}}) </h2>
+<form method="post" action="{% url 'catalogo:atualizar' foto.id%}">
+  {% csrf_token %}
+  <img class="foto" src="{{ foto.url_foto }}" alt="Fotografia: {{ foto.titulo}}" />
+  <p>
+    <label for="id_titulo"> Título: </label>
+    <input 
+      type="text" 
+      name="titulo" 
+      id="id_titulo" 
+      value="{{ foto.titulo }}" />
+  </p>
+  <p>
+    <label for=" id_ano_foto">Ano da foto: </label>
+    <input
+      type="number"
+      name="ano_foto"
+      id="id_ano_foto"
+      value={{foto.ano_foto}}
+    />
+    </p>
+  <p>
+    <label for=" id_url_foto">URL da foto: </label>
+    <input
+      type="url"
+      name="url_foto"
+      id="id_url_foto"
+      value="{{foto.url_foto}}"
+    />
+  </p>
+  <p>
+    <label for=" id_descricao">Descição </label>
+    <input
+      type="text"
+      name="descricao"
+      id="id_descricao"
+      value="{{foto.descricao}}"
+    />
+  </p>
+  <button type="submit"> Atualizar </button>
+</form>
+{% endblock content %}
