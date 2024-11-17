@@ -9,6 +9,6 @@ urlpatterns = [
     path('busca/', views.busca_fotos, name='busca'),
     path('postar_foto/', views.postar_foto_createView.as_view(), name='postar'),
     path('atualizar_post/<int:foto_id>/', views.atualizar_post_updateView.as_view(), name='atualizar'),
-    path('deletar/<int:foto_id>/', views.deletar_foto_deleteView.as_view(), name='deletar')
-
+    path('deletar/<int:foto_id>/', views.deletar_foto_deleteView.as_view(), name='deletar'),
+    path('<int:foto_id>/comentario/', views.criar_comentario, name='comentario')
 ]

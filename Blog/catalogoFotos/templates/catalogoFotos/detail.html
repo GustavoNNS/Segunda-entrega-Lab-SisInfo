@@ -18,5 +18,26 @@
       </ul>
       <p> {{foto.descricao}} </p>
     </section>
+
+    <section>
+      <header>
+          <h3>Comentários</h3>
+      </header>
+      <a href="{% url 'catalogo:comentario' foto.pk %}"><button>Comentar!</button></a>
+      <ul>
+          {% if foto.comentario_set.all %}
+              {% for comentario in foto.comentario_set.all reversed  %}
+                  <figure>
+                      <blockquote>
+                          "{{ comentario.texto }}"
+                      </blockquote>
+                      <figcaption>— {{ comentario.autor }}  - {{ comentario.data_postagem }}</figcaption>
+                  </figure>
+              {% endfor %}
+          {% else %}
+              <p>Ainda não existe nenhuma resenha para este filme.</p>
+          {% endif %}
+      </ul>
+  </section>
     
     {% endblock content %}

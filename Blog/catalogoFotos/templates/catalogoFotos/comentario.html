@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Comentarios de {{ foto.titulo }} ({{ foto.ano_foto}})</h2>
+
+<form action="{% url 'catalogo:comentario' foto.id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Comentar!</button>
+</form>
+
+<p><a href="{% url 'catalogo:detail' foto.id %}">Voltar para foto</a></p>
+{% endblock content %}

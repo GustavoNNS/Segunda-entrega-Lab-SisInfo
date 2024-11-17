@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from .models import Post
-from .forms import PostForm
+from .models import Post, Comentario
+from .forms import PostForm, ComentarioForm
 from django.views import generic, View
 
 class catalogo_fotos_listView(generic.ListView):
@@ -77,3 +77,24 @@ class deletar_foto_deleteView(View):
         foto = get_object_or_404(Post, pk=foto_id)
         foto.delete()
         return HttpResponseRedirect(reverse('catalogo:index'))
+
+def criar_comentario(request, foto_id):
+    foto = get_object_or_404(Post, pk=foto_id)
+    if request.method == 'POST':
+
+        form = ComentarioForm(request.POST)
+        if form.is_valid():
+            autor_form = form.cleaned_data['autor']
+            texto_form = form.cleaned_data['texto']
+            comentario = Comentario(autor=autor_form,
+                            texto=texto_form,
+                            foto=foto)
+            comentario.save()
+            return HttpResponseRedirect(
+                reverse('catalogo:detail', args=(foto_id,)))
+        pass
+    else:
+        
+        form = ComentarioForm()
+    context = {'form': form, 'foto': foto}
+    return render(request, 'catalogoFotos/comentario.html', context)
