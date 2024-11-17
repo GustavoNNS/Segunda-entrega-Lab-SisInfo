@@ -43,7 +43,8 @@ class postar_foto_createView(View):
                         ano_foto = form_ano_foto,
                         url_foto = form_url_foto)
             foto.save()
-            return HttpResponseRedirect(reverse('catalogo:detail', args=(foto.id, )))
+            return HttpResponseRedirect(reverse('catalogo:detail', args=(foto.id,)))
+        return HttpResponseRedirect(reverse('catalogo:index'))
 
 class atualizar_post_updateView(View):
     def get(self, request, foto_id):
