@@ -2,23 +2,8 @@
 <h2>Postar nova foto</h2>
 <form method="POST" action="{% url 'catalogo:postar' %}">
   {% csrf_token %}
-  <p>
-    <label for="id_titulo">Título:</label>
-    <input type="text" name="titulo" id="id_titulo" />
-  </p>
-  <p>
-    <label for="id_descricao">Descrição da foto:</label>
-    <input type="text" name="descricao" id="id_descricao" />
-  </p>
-  <p>
-    <label for="id_ano_foto">Ano da fotografia:</label>
-    <input type="number" name="ano_foto" id="id_ano_foto" />
-  </p>
-  <p>
-    <label for="id_url_foto">URL da foto:</label>
-    <input type="url" name="url_foto" id="id_url_foto" />
-  </p>
-  <button type="submit">Criar</button>
+  {{ form.as_p }}
+  <button type="submit">Postar</button>
 </form>
 
 {% endblock content %}
