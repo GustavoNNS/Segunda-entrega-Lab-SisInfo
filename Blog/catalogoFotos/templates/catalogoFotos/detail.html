@@ -16,9 +16,12 @@
         <li><a href="{% url 'catalogo:atualizar' foto.id %}"> Editar </a> </li>
         <li><a href="{% url 'catalogo:deletar' foto.id %}"> Apagar </a> </li>
       </ul>
+
       <p> {{foto.descricao}} </p>
     </section>
-
+    {% if foto.categoria_set.all %}
+            <li>Categorias: {{ foto.categoria_set.all|join:", " }} </li>
+    {% endif %}
     <section>
       <header>
           <h3>Comentários</h3>

@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from .models import Post, Comentario
+from .models import Post, Comentario, Categoria
 from .forms import PostForm, ComentarioForm
 from django.views import generic, View
+from django.urls import reverse_lazy
 
 class catalogo_fotos_listView(generic.ListView):
     model = Post
@@ -98,3 +99,14 @@ def criar_comentario(request, foto_id):
         form = ComentarioForm()
     context = {'form': form, 'foto': foto}
     return render(request, 'catalogoFotos/comentario.html', context)
+
+class CategoriaListView(generic.ListView):
+    model = Categoria
+    template_name = 'catalogoFotos/categorias.html'
+
+
+class CategoriaCreateView(generic.CreateView):
+    model = Categoria
+    template_name = 'catalogoFotos/criarCategoria.html'
+    fields = ['nome', 'descricao', 'fotos']
+    success_url = reverse_lazy('catalogo:categorias')

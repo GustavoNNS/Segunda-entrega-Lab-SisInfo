@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Post, Comentario
+from .models import Post, Comentario, Categoria
 
 
 class PostForm(ModelForm):
@@ -27,4 +27,17 @@ class ComentarioForm(ModelForm):
         labels = {
             'autor': 'Usuário',
             'texto': 'Comentário',
+        }
+class CategoriaForm(ModelForm):
+    class Meta:
+        model = Categoria
+        fields = [
+            'nome',
+            'descricao',
+            'fotos'
+        ]
+        labels = {
+            'nome' : 'Categoria',
+            'descricao' : 'Descrição',
+            'fotos' : 'Fotos na categoria'
         }

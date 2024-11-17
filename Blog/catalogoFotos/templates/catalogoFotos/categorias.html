@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Categorias
+{% endblock title %}
+
+{% block content %}
+<h2>Categorias de fotos</h2>
+
+<section>
+    {% for categoria in categoria_list %}
+    <hr>
+    <article>
+        <header>
+            <h3>{{categoria.nome}}</h3>
+        </header>
+        <div class="lista-de-cards">
+            {% for foto in categoria.fotos.all %}
+            <div class="card">
+                <a href="{% url 'catalogo:detail' foto.id %}">
+                    <img src="{{ foto.url_foto }}" alt="{{ foto.titulo}}">
+                </a>
+                <p>{{ foto.titulo }} ({{ foto.ano_foto }})</p>
+            </div>
+            {% endfor %}
+        </div>
+    </article>
+    {% endfor %}
+
+    <a href="{% url 'catalogo:criar_categoria' %}"><button>Crie sua categoria</button></a>
+</section>
+
+{% endblock content %}
